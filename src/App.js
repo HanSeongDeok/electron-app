@@ -1,12 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import {SEND_MAIN_PING, RECIEVE_REACT_PONG} from './constants.js'
+import { useEffect, useState } from "react";
 
 function App() {
+  const sendToMain = () => {
+    window.electron.ipcRenderer.send(SEND_MAIN_PING, SEND_MAIN_PING)
+  }
+
+  useEffect(() => {
+    const listener = (event, message) => {
+      console.log(message);
+    }
+    window.electron.ipcRenderer.on(RECIEVE_REACT_PONG, listener);
+    return () => {
+      window.electron.ipcRenderer.removeListener(RECIEVE_REACT_PONG, listener);
+    }
+  });
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
+          TEST <br/>
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <a
@@ -17,6 +34,7 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={ sendToMain }>Send Mail</button> 
       </header>
     </div>
   );
