@@ -1,8 +1,8 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
+import type { IpcRendererAPI } from '@types/ipc';
 
-contextBridge.exposeInMainWorld('electron', {
-  ipcRenderer: {
-    send: (channel: string, data?: any) => {
+const ipcApi = IpcRendererAPI = {
+   send: (channel: string, data?: any) => {
       ipcRenderer.send(channel, data);
     },
 
@@ -13,5 +13,6 @@ contextBridge.exposeInMainWorld('electron', {
     removeListener: (channel: string, callback: (...args: any[]) => void) => {
       ipcRenderer.removeListener(channel, callback);
     }
-  }
-});
+}
+
+contextBridge.exposeInMainWorld('electron', {ipcRenderer: ipcApi});
