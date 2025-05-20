@@ -10,13 +10,13 @@ function App() {
 
   useEffect(() => {
     const listener = (event, message) => {
-      console.log(message);
+      console.log(`${event}: ${message}`);
     }
     window.electron.ipcRenderer.on(RECIEVE_REACT_PONG, listener);
     return () => {
       window.electron.ipcRenderer.removeListener(RECIEVE_REACT_PONG, listener);
     }
-  });
+  }, []);
 
   return (
     <div className="App">
