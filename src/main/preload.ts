@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { IpcRendererEvent } from 'electron';
-import type { IpcRendererAPI } from 'src/types/ipc'; 
+import type { IpcRendererAPI } from '@type/ipc'; 
 
 const ipcApi: IpcRendererAPI = {
    send: (channel: string, data?: any) => {

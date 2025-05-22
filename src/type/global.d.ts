@@ -1,4 +1,4 @@
-import type { IpcRendererAPI } from '@types/ipc';
+import type { IpcRendererAPI } from '@/type/ipc';
 
 declare global {
   interface Window {

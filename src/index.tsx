@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-console.log('✅ React 진입 성공');
 const rootElement = document.getElementById('root')
 if (rootElement) {
   const root = ReactDOM.createRoot(rootElement);
