@@ -2,8 +2,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@types/*": ["src/types/*"],
-      "@renderer/*": ["src/renderer/*"]
+      "@/*" : ["src/*"],
+      "@images/*": ["src/images/*"],
+      "@types/*": ["src/types/*"]
     },
     "target": "ES2020",
     "module": "ESNext",
@@ -15,6 +16,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
+    "verbatimModuleSyntax": true
   },
   "include": ["src"]
 }

@@ -1,7 +1,8 @@
-import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
-import type { IpcRendererAPI } from '@types/ipc';
+import { contextBridge, ipcRenderer } from 'electron';
+import type { IpcRendererEvent } from 'electron';
+import type { IpcRendererAPI } from 'src/types/ipc'; 
 
-const ipcApi = IpcRendererAPI = {
+const ipcApi: IpcRendererAPI = {
    send: (channel: string, data?: any) => {
       ipcRenderer.send(channel, data);
     },

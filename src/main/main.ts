@@ -12,12 +12,12 @@ function createWindow () {
     width: 800, 
     height: 600, 
     webPreferences: { 
-      preload: path.join(__dirname, 'public', 'preload.js'),
+      preload: path.join(__dirname, '../../build', 'preload.js'),
       contextIsolation : true,
       nodeIntegration: false
     } 
   }) 
-  win.loadURL("http://localhost:3000")
+  win.loadURL("http://localhost:5173")
   win.webContents.openDevTools()
 } 
 ipcMain.on(SEND_MAIN_PING, (event, args) => {
