@@ -3,3 +3,7 @@ export interface IpcRendererAPI {
   on: (channel: string, callback: (...args: any[]) => void) => void;
   removeListener: (channel: string, callback: (...args: any[]) => void) => void;
 }
+
+export interface IpcListenerAPI {
+  listen: (event: Electron.IpcRendererEvent, message: string) => void;
+}

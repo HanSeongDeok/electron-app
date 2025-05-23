@@ -3,7 +3,9 @@
     "baseUrl": ".",
     "paths": {
       "@images/*": ["src/images/*"],
-      "@type/*": ["src/type/*"]
+      "@type/*": ["src/type/*"],
+      "@components/*": ["src/renderer/components/*"],
+      "@hooks/*": ["src/renderer/hooks/*"],
     },
     "target": "ES2020",
     "module": "ESNext",

@@ -1,8 +1,8 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import type { IpcRendererEvent } from 'electron';
-import type { IpcRendererAPI } from '@type/ipc'; 
+import type { IpcRendererAPI, IpcListenerAPI } from '@type/ipc'; 
 
-const ipcApi: IpcRendererAPI = {
+const ipcRendererApi: IpcRendererAPI = {
    send: (channel: string, data?: any) => {
       ipcRenderer.send(channel, data);
     },
@@ -16,4 +16,13 @@ const ipcApi: IpcRendererAPI = {
     }
 }
 
-contextBridge.exposeInMainWorld('electron', {ipcRenderer: ipcApi});
+const ipcListenerApi: IpcListenerAPI = {
+    listen: (event: Electron.IpcRendererEvent, message: string) => {
+        console.log(event, message);
+    }
+}
+
+contextBridge.exposeInMainWorld('electron', {
+  ipcRenderer: ipcRendererApi,
+  ipcListener: ipcListenerApi
+});

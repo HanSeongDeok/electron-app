@@ -1,9 +1,10 @@
-import type { IpcRendererAPI } from '@/type/ipc';
+import type { IpcRendererAPI, IpcListenerAPI } from '@type/ipc';
 
 declare global {
   interface Window {
     electron: {
       ipcRenderer: IpcRendererAPI;
+      ipcListener: IpcListenerAPI;
     };
   }
 }
