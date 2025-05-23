@@ -11,17 +11,18 @@ export default defineConfig({
     outDir: './.vite/build',
     sourcemap: 'inline',
     minify: process.env.MODE === 'production',
-    lib: {
-      entry: path.resolve(__dirname, './src/main/preload.ts'),
-      formats: ['cjs'],
-      fileName: () => '[name].js'
-    },
     rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, './src/main/main'),
+        preload: path.resolve(__dirname, './src/main/preload'),
+      },
       external: [
+        'electron',
         ...builtinModules.flatMap(m => [m, `node:${m}`]),
       ],
       output: {
-        entryFileNames: '[name].js'
+        entryFileNames: '[name].js',
+        format: 'cjs',
       }
     },
     emptyOutDir: true,
