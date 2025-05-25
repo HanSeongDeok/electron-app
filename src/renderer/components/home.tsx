@@ -18,9 +18,11 @@ const Home = memo(() => {
       Learn React
     </a>
     <div className="Flex-row">
-      <button onClick={sendToMain}>Send Ping</button>
+      <NavLink to="/">
+        <button onClick={sendToMain}>Send Ping</button>
+      </NavLink>
       <NavLink to="/Other">
-        <button>Go to Other</button>
+        <button>Go to Views</button>
       </NavLink>
     </div>
   </header>
