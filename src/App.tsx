@@ -4,12 +4,10 @@ import Other from '@components/other';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 const App = () => (
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/other" element={<Other />} />
-    </Routes>
-</BrowserRouter>
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/other" element={<Other />} />
+  </Routes>
 );
 
 export default App;
