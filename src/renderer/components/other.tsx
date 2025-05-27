@@ -1,7 +1,8 @@
-import { memo, useRef, useState } from "react";
+import { memo, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@images/components/ui/table";
 import { Button } from "@images/components/ui/button";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@images/components/ui/tabs";
 
 const data = [
   { id: 1, name: "Item A", price: 1000 },
@@ -9,82 +10,33 @@ const data = [
   { id: 3, name: "Item C", price: 3000 },
 ];
 
-// TableView 단일 컴포넌트
-const TableView = () => (
-  <Table>
-    <TableHeader>
-      <TableRow>
-        <TableHead className="w-[100px]">ID</TableHead>
-        <TableHead>Name</TableHead>
-        <TableHead className="text-right">Price (₩)</TableHead>
-      </TableRow>
-    </TableHeader>
-    <TableBody>
-      {data.map((item) => (
-        <TableRow key={item.id}>
-          <TableCell>{item.id}</TableCell>
-          <TableCell>{item.name}</TableCell>
-          <TableCell className="text-right">{item.price.toLocaleString()}</TableCell>
-        </TableRow>
-      ))}
-    </TableBody>
-  </Table>
-);
-
-// 분리 가능한 ViewWrapper
-const ViewWrapper = ({ title, children }: { title: string; children: React.ReactNode }) => {
-  const [detached, setDetached] = useState(false);
-  const popupRef = useRef<Window | null>(null);
-
-  const handleDetach = () => {
-    const popup = window.open("", "_blank", "width=600,height=400");
-    if (!popup) return;
-    popupRef.current = popup;
-    setDetached(true);
-
-    const html = `
-      <html>
-        <head>
-          <title>${title}</title>
-          <script src="https://cdn.tailwindcss.com"></script>
-        </head>
-        <body class="p-4 font-sans">
-          <h2 class="text-lg font-bold mb-4">${title}</h2>
-          <div id="table-container"></div>
-          <button onclick="window.close()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded">Return</button>
-          <script>
-            document.getElementById("table-container").innerHTML = \`${document.getElementById(title)?.innerHTML}\`;
-          </script>
-        </body>
-      </html>
-    `;
-    popup.document.write(html);
-    popup.document.close();
-  };
-
-  const handleReturn = () => {
-    popupRef.current?.close();
-    setDetached(false);
-  };
-
-  return (
-    <div className="border rounded-xl shadow p-4 space-y-4" id={title}>
-      <div className="flex justify-between items-center">
-        <h3 className="font-semibold text-lg">{title}</h3>
-        {!detached ? (
-          <Button variant="outline" onClick={handleDetach}>
-            Detach
-          </Button>
-        ) : (
-          <Button variant="secondary" onClick={handleReturn}>
-            Return
-          </Button>
-        )}
-      </div>
-      {children}
+const TableView = ({name}: { name: string }) => (
+  <div className="border rounded-md shadow-sm bg-white">
+    <div className="flex items-center justify-between px-4 py-2 border-b bg-muted">
+      <span className="text-sm font-medium">{name}.tsx</span>
     </div>
-  );
-};
+    <div className="p-4 overflow-auto">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[120px]">ID</TableHead>
+            <TableHead>Name</TableHead>
+            <TableHead>Price (₩)</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {data.map((item) => (
+            <TableRow key={item.id}>
+              <TableCell style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>{item.id}</TableCell>
+              <TableCell style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>{item.name}</TableCell>
+              <TableCell style={{ paddingTop: "1rem", paddingBottom: "1rem" }}>{item.price.toLocaleString()}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+  </div>
+);
 
 const Other = memo(() => {
   return (
@@ -96,20 +48,25 @@ const Other = memo(() => {
         </NavLink>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <ViewWrapper title="View 1">
-          <TableView />
-        </ViewWrapper>
-        <ViewWrapper title="View 2">
-          <TableView />
-        </ViewWrapper>
-        <ViewWrapper title="View 3">
-          <TableView />
-        </ViewWrapper>
-      </div>
+      <Tabs defaultValue="file1" className="w-[400px]">
+        <TabsList className="flex gap-1">
+          <TabsTrigger value="file1">file1.tsx</TabsTrigger>
+          <TabsTrigger value="file2">file2.tsx</TabsTrigger>
+          <TabsTrigger value="file3">file3.tsx</TabsTrigger>
+        </TabsList>
+        <TabsContent value="file1">
+          <TableView name="file1" />
+        </TabsContent>
+        <TabsContent value="file2">
+          <TableView name="file2" />
+        </TabsContent>
+        <TabsContent value="file3">
+          <TableView name="file3" />
+        </TabsContent>
+      </Tabs>
 
       <p className="text-muted-foreground text-sm">
-        각 View는 VS Code처럼 분리 및 복귀가 가능합니다.
+        이것은 테스트 문구 입니다.
       </p>
     </div>
   );
