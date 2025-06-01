@@ -1,11 +1,19 @@
 @import "tailwindcss";
 
-body {
-  @apply bg-white dark:bg-gray-900;
+@layer base {
+  body {
+    @apply bg-black text-white font-inter;
+  }
 }
 
-@layer base {
-  button {
-    @apply px-4 py-2 rounded-md bg-blue-500 text-white;
+@layer components {
+  table {
+    @apply w-full border-collapse text-sm;
+  }
+  th, td {
+    @apply border-b border-gray-200;
+  }
+  thead th {
+    @apply border-b border-gray-300;
   }
 }

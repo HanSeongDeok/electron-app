@@ -39,9 +39,7 @@ const Other = memo(() => {
         <Button>Go to Home</Button>
       </NavLink>
       <Tabs defaultValue="file1">
-        <TabsList 
-          style={{ backgroundColor: "#3b82f6", color: "white" }}
-        >
+        <TabsList>
           <TabsTrigger value="file1">file1.tsx</TabsTrigger>
           <TabsTrigger value="file2">file2.tsx</TabsTrigger>
           <TabsTrigger value="file3">file3.tsx</TabsTrigger>
