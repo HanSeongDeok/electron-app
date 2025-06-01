@@ -1,4 +1,4 @@
-import { Button } from "@/images/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
 
 const Test = () => {

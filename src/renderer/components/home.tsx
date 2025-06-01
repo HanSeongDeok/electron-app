@@ -20,13 +20,13 @@ const Home = memo(() => {
         </a>
         <div className="Flex-row">
           <NavLink to="/">
-            <button onClick={sendToMain}>Send Ping</button>
+            <button className="btn" onClick={sendToMain}>Send Ping</button>
           </NavLink>
           <NavLink to="/Other">
-            <button>Go to Views</button>
+            <button className="btn">Go to Views</button>
           </NavLink>
           <NavLink to="/Test">
-            <button>Go to Test</button>
+            <button className="btn">Go to Test</button>
           </NavLink>
         </div>
       </header>

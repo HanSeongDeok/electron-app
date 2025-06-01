@@ -1,8 +1,9 @@
 import { memo, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@images/components/ui/table";
-import { Button } from "@images/components/ui/button";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@images/components/ui/tabs";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem } from "@/components/ui/context-menu";
 
 const data = [
   { id: 1, name: "Item A", price: 1000 },
@@ -14,9 +15,9 @@ const TableView = ({ name }: { name: string }) => (
   <Table>
     <TableHeader>
       <TableRow>
-        <TableHead>ID</TableHead>
-        <TableHead>Name</TableHead>
-        <TableHead>Price (₩)</TableHead>
+        <TableHead>{name}: ID</TableHead>
+        <TableHead>{name}: Name</TableHead>
+        <TableHead>{name}: Price (₩)</TableHead>
       </TableRow>
     </TableHeader>
     <TableBody>
@@ -34,16 +35,33 @@ const TableView = ({ name }: { name: string }) => (
 const Other = memo(() => {
   return (
     <div>
-      <h2>Other Page</h2>
-      <NavLink to="/" className="fixed top-[25px] right-[10px]">
-        <Button>Go to Home</Button>
-      </NavLink>
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-3xl font-bold">Other Page</h1>
+        <NavLink to="/">
+          <Button className="btn mt-3 mr-4">Go to Home</Button>
+        </NavLink>
+      </div>
+
       <Tabs defaultValue="file1">
-        <TabsList>
-          <TabsTrigger value="file1">file1.tsx</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-3">
+          <ContextMenu>
+            <ContextMenuTrigger asChild>
+              <TabsTrigger 
+                value="file1"
+                className="data-[state=active]:bg-gray-800 data-[state=active]:text-white hover:bg-gray-700 transition-colors">
+                  file1.tsx
+              </TabsTrigger>
+            </ContextMenuTrigger>
+            <ContextMenuContent className="bg-white text-black border border-gray-200 shadow-md p-1 rounded-md">
+              <ContextMenuItem className="hover:bg-gray-100 px-2 py-1.5 rounded text-sm">
+                새 창으로 열기
+              </ContextMenuItem>
+            </ContextMenuContent>
+          </ContextMenu>
           <TabsTrigger value="file2">file2.tsx</TabsTrigger>
           <TabsTrigger value="file3">file3.tsx</TabsTrigger>
-        </TabsList >
+        </TabsList>
+
         <TabsContent value="file1">
           <TableView name="file1" />
         </TabsContent>
