@@ -7,7 +7,8 @@
       "@type/*": ["src/type/*"],
       "@components/*": ["src/renderer/components/*"],
       "@hooks/*": ["src/renderer/hooks/*"],
-      "@ipcs/*": ["src/renderer/ipcs/*"]
+      "@handlers/*": ["src/renderer/handlers/*"],
+      "@views/*": ["src/renderer/components/views/*"]
     },
     "target": "ES2020",
     "module": "ESNext",

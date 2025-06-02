@@ -32,10 +32,11 @@
   }
 
   [data-slot="tabs-trigger"][data-state="active"] {
-    @apply bg-gray-800 text-white;
+    @apply bg-gray-700 text-white;
   }
 
   [data-slot="tabs-trigger"]:hover {
-    @apply bg-gray-700 transition-colors;
+    @apply bg-gray-800 transition-colors;
   }
+
 }

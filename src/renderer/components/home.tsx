@@ -1,8 +1,8 @@
 import { memo } from "react";
 import nature from '@images/nature.png'
 import { usePingPong } from "@hooks/usePingPong";
-import { sendToMain } from "@ipcs/ipcSend";
 import { NavLink } from "react-router-dom";
+import { sendToMain } from "@handlers/ipcHandler";
 
 const Home = memo(() => {
   usePingPong();

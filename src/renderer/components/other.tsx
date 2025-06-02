@@ -1,36 +1,12 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import { NavLink } from "react-router-dom";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem } from "@/components/ui/context-menu";
-
-const data = [
-  { id: 1, name: "Item A", price: 1000 },
-  { id: 2, name: "Item B", price: 2000 },
-  { id: 3, name: "Item C", price: 3000 },
-];
-
-const TableView = ({ name }: { name: string }) => (
-  <Table>
-    <TableHeader>
-      <TableRow>
-        <TableHead>{name}: ID</TableHead>
-        <TableHead>{name}: Name</TableHead>
-        <TableHead>{name}: Price (₩)</TableHead>
-      </TableRow>
-    </TableHeader>
-    <TableBody>
-      {data.map((item) => (
-        <TableRow key={item.id}>
-          <TableCell>{item.id}</TableCell>
-          <TableCell>{item.name}</TableCell>
-          <TableCell>{item.price.toLocaleString()}</TableCell>
-        </TableRow>
-      ))}
-    </TableBody>
-  </Table>
-);
+import { TableView } from "@views/tableView";
+import { openNewWindow } from "@handlers/ipcHandler";
+import { userGroupState } from "../hooks/useGroupState";
+import type { group } from "console";
 
 const Other = memo(() => {
   return (
@@ -46,14 +22,16 @@ const Other = memo(() => {
         <TabsList className="grid w-full grid-cols-3">
           <ContextMenu>
             <ContextMenuTrigger asChild>
-              <TabsTrigger 
+              <TabsTrigger
                 value="file1"
-                className="data-[state=active]:bg-gray-800 data-[state=active]:text-white hover:bg-gray-700 transition-colors">
-                  file1.tsx
+                className="hover:bg-gray-800 transition-colors data-[state=active]:bg-gray-700 text-white">
+                file1.tsx
               </TabsTrigger>
             </ContextMenuTrigger>
-            <ContextMenuContent className="bg-white text-black border border-gray-200 shadow-md p-1 rounded-md">
-              <ContextMenuItem className="hover:bg-gray-100 px-2 py-1.5 rounded text-sm">
+            <ContextMenuContent className="bg-white text-black border border-gray-200 shadow-md p-1 rounded-md min-w-[12rem]">
+              <ContextMenuItem
+                onClick={() => openNewWindow("file1")}
+                className="hover:bg-gray-100 px-2 py-1.5 rounded text-xs">
                 새 창으로 열기
               </ContextMenuItem>
             </ContextMenuContent>
@@ -61,8 +39,14 @@ const Other = memo(() => {
           <TabsTrigger value="file2">file2.tsx</TabsTrigger>
           <TabsTrigger value="file3">file3.tsx</TabsTrigger>
         </TabsList>
-
-        <TabsContent value="file1">
+        {userGroupState().groups.map(group => (
+          group.tabs.map(tab => (
+            <TabsContent key={`${group.id}-${tab.id}`} value={tab.id}>
+              <TableView name={tab.id} />
+            </TabsContent>
+          ))
+        ))}
+        {/** <TabsContent value="file1">
           <TableView name="file1" />
         </TabsContent>
         <TabsContent value="file2">
@@ -70,7 +54,7 @@ const Other = memo(() => {
         </TabsContent>
         <TabsContent value="file3">
           <TableView name="file3" />
-        </TabsContent>
+        </TabsContent> */}
       </Tabs>
       <p className="text-muted-foreground text-sm">
         이것은 테스트 문구 입니다.
