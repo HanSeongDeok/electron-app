@@ -6,7 +6,7 @@ const data = [
   { id: 3, name: "Item C", price: 3000 },
 ];
 
-const TableView = ({ name }: { name: string }) => (
+export const TableView = ({ name }: { name: string }) => (
   <Table>
     <TableHeader>
       <TableRow>
@@ -26,5 +26,3 @@ const TableView = ({ name }: { name: string }) => (
     </TableBody>
   </Table>
 );
-
-export { TableView }
