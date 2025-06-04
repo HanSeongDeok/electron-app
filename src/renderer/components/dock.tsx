@@ -1,10 +1,17 @@
 import { Button } from '@/components/ui/button';
 import DockLayout from 'rc-dock';
-import type { LayoutData, TabData } from 'rc-dock';
+import type { LayoutData, PanelBase, TabData } from 'rc-dock';
 import { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { handleContextMenu, layoutRef } from '@handlers/contextMenuHandler';
 import { DockContextMenu, menus } from './menus/dockContextMenu';
+
+const main: TabData = {
+    id: 'main',
+    title: 'main',
+    closable: false,
+    content: <div>Hello Main</div>,
+};
 
 const tab1: TabData = {
     id: 'tab1',
@@ -39,10 +46,19 @@ const defaultLayout: LayoutData = {
         mode: 'horizontal',
         children: [
             {
-                tabs: [tab1, tab2, tab3, tab4],
+                id: 'main-panel',
+                tabs: [main, tab1, tab2, tab3, tab4],
             },
         ],
     },
+};
+
+const tabs: Record<string, TabData> = {
+    main,
+    tab1,
+    tab2,
+    tab3,
+    tab4,
 };
 
 const DockApp = memo(() => {
@@ -53,22 +69,23 @@ const DockApp = memo(() => {
                     <Button className="btn">Go to Home</Button>
                 </NavLink>
             </div>
-                <div onContextMenu={handleContextMenu}>
-                    <DockLayout
-                        ref={layoutRef}
-                        defaultLayout={defaultLayout}
-                        style={{
-                            position: 'absolute',
-                            left: 1,
-                            top: 45,
-                            right: 1,
-                            bottom: 1,
-                        }}
-                    />
-                    <DockContextMenu onOpenTab={() => {
-                        layoutRef.current?.dockMove(tab4, 'tab1', 'middle');
+            <div onContextMenu={handleContextMenu}>
+                <DockLayout
+                    ref={layoutRef}
+                    defaultLayout={defaultLayout}
+                    style={{
+                        position: 'absolute',
+                        left: 1,
+                        top: 45,
+                        right: 1,
+                        bottom: 1,
+                    }}
+                />
+                <DockContextMenu
+                    onOpenTab={(tabId) => {
+                        layoutRef.current?.dockMove({ ...tabs[tabId] }, 'main', 'after-tab');
                     }} />
-                </div>
+            </div>
         </div>
     );
 });

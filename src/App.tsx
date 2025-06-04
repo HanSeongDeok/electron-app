@@ -5,6 +5,7 @@ import Test from '@components/test';
 import { Route, Routes } from 'react-router-dom';
 import NewWinOther from './renderer/components/newWinOther';
 import DockApp from './renderer/components/dock';
+import MosaicApp from './renderer/components/mosaic';
 
 const App = () => (
   <Routes>
@@ -13,6 +14,7 @@ const App = () => (
     <Route path="/other/new/:tabName" element={<NewWinOther />} />
     <Route path="/test" element={<Test />} />
     <Route path="/dock" element={<DockApp />} />
+    <Route path="/mosaic" element={<MosaicApp/>}/>
   </Routes>
 );
 

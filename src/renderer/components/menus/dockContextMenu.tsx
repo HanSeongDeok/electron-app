@@ -1,4 +1,4 @@
-import { Menu, Item, useContextMenu } from 'react-contexify';
+import { Menu, Item } from 'react-contexify';
 import 'react-contexify/dist/ReactContexify.css';
 
 export const MENU_ID = 'dock-menu';

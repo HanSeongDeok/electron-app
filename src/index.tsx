@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import 'rc-dock/dist/rc-dock-dark.css';
 import './index.css';
+import 'react-mosaic-component/react-mosaic-component.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
