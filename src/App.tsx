@@ -4,6 +4,7 @@ import Other from '@components/other';
 import Test from '@components/test';
 import { Route, Routes } from 'react-router-dom';
 import NewWinOther from './renderer/components/newWinOther';
+import DockApp from './renderer/components/dock';
 
 const App = () => (
   <Routes>
@@ -11,6 +12,7 @@ const App = () => (
     <Route path="/other" element={<Other />} />
     <Route path="/other/new/:tabName" element={<NewWinOther />} />
     <Route path="/test" element={<Test />} />
+    <Route path="/dock" element={<DockApp />} />
   </Routes>
 );
 

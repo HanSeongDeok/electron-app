@@ -38,5 +38,4 @@
   [data-slot="tabs-trigger"]:hover {
     @apply bg-gray-800 transition-colors;
   }
-
 }
