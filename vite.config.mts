@@ -7,11 +7,13 @@ import {builtinModules} from "module";
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
+  base: './',
   plugins: [react(), tsconfigPaths(), tailwindcss()],
   build: {
-    outDir: './.vite/build',
+    outDir: '.vite/build',
     sourcemap: 'inline',
     minify: process.env.MODE === 'production',
+    assetsDir: 'assets',
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, './src/main/main'),

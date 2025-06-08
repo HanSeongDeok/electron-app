@@ -17,8 +17,12 @@ function createWindow () {
       nodeIntegration: false
     } 
   }) 
-  win.loadURL("http://localhost:5173")
-  win.webContents.openDevTools()
+  if (app.isPackaged) {
+     win.loadFile(path.join(__dirname, 'renderer/index.html'));
+  } else {
+    win.loadURL("http://localhost:5173")
+    win.webContents.openDevTools()
+  }
 } 
 ipcMain.on(SEND_MAIN_PING, (event, args) => {
     console.log(args)
