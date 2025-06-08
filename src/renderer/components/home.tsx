@@ -34,6 +34,9 @@ const Home = memo(() => {
           <NavLink to="/Mosaic">
             <button className="btn">Go to Mosaic</button>
           </NavLink>
+          <NavLink to="/Zustand-1">
+            <button className="btn">Go to ZS-1</button>
+          </NavLink>
         </div>
       </header>
     </div>

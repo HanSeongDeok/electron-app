@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import NewWinOther from './renderer/components/newWinOther';
 import DockApp from './renderer/components/dock';
 import MosaicApp from './renderer/components/mosaic';
+import CounterComponent from './renderer/components/zustandExample';
 
 const App = () => (
   <Routes>
@@ -15,6 +16,7 @@ const App = () => (
     <Route path="/test" element={<Test />} />
     <Route path="/dock" element={<DockApp />} />
     <Route path="/mosaic" element={<MosaicApp/>}/>
+    <Route path="/Zustand-1" element={<CounterComponent/>}/>
   </Routes>
 );
 
