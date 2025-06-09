@@ -4,10 +4,10 @@ declare global {
   interface Window {
     electron: {
       ipcRenderer: IpcRendererAPI;
-      //ipcMain: IpcMainAPI;
+      //ipcMain: IpcMainAPI;  // 해당 IpcMain은 contextBridge가 불가능 하다.  
       ipcListener: IpcListenerAPI;
     };
   }
 }
 
-export {};
+export { };

@@ -26,23 +26,22 @@ const ipcListenerApi: IpcListenerAPI = {
   },
 }
 
-// Main을 활용한 contextBridge는 사용할 수 없음
-const ipcMainApi: IpcMainAPI = {
-  on: (channel, listener) => {
-    ipcMain.on(channel, (event: IpcMainEvent, ...args: any[]) => {
-      listener(event, ...args);
-    });
-  },
-
-  handle: (channel, listener) => {
-    ipcMain.handle(channel, (event: IpcMainInvokeEvent, ...args: any[]) => {
-      return listener(event, ...args);
-    });
-  }
-}
-
 contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: ipcRendererApi,
   ipcListener: ipcListenerApi,
-  //ipcMain: ipcMainApi,
 });
+
+// Main을 활용한 contextBridge는 사용할 수 없음
+// const ipcMainApi: IpcMainAPI = {
+//   on: (channel, listener) => {
+//     ipcMain.on(channel, (event: IpcMainEvent, ...args: any[]) => {
+//       listener(event, ...args);
+//     });
+//   },
+
+//   handle: (channel, listener) => {
+//     ipcMain.handle(channel, (event: IpcMainInvokeEvent, ...args: any[]) => {
+//       return listener(event, ...args);
+//     });
+//   }
+// }
