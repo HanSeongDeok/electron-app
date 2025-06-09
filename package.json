@@ -1,5 +1,5 @@
 {
-  "name": "logAnalyzer2",
+  "name": "LogAnalyzer2",
   "version": "0.1.0",
   "private": true,
   "main": ".vite/build/main.js",

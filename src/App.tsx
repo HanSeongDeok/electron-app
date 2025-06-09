@@ -7,6 +7,7 @@ import NewWinOther from './renderer/components/newWinOther';
 import DockApp from './renderer/components/dock';
 import MosaicApp from './renderer/components/mosaic';
 import CounterComponent from './renderer/components/zustandExample';
+import UserInfo from './renderer/components/zustandExample2';
 
 const App = () => (
   <Routes>
@@ -17,6 +18,7 @@ const App = () => (
     <Route path="/dock" element={<DockApp />} />
     <Route path="/mosaic" element={<MosaicApp/>}/>
     <Route path="/Zustand-1" element={<CounterComponent/>}/>
+    <Route path="/Zustand-2" element={<UserInfo/>}/>
   </Routes>
 );
 

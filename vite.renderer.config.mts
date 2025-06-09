@@ -13,7 +13,7 @@ export default defineConfig({
     rollupOptions: {
       input: path.resolve(__dirname, './index.html'),
       output: {
-        format: 'es', // 브라우저 호환
+        format: 'es',
       }
     }
   }
