@@ -115,11 +115,16 @@ const DockApp = memo(() => {
                 <NewWindowMenu
                     onOpenTab={(tabId) => {
                         const test = useContextMenuStore.getState().clickedElementId;
+                        console.log(test)
                         layoutRef.current?.dockMove(tabs[tabId], 'main', 'after-tab');
+                        
                     }}
                     openNewWindow={(tabId) => {
                         console.log(tabId)
-                        layoutRef.current?.dockMove(tabs[tabId], null, 'remove');
+                         if(tabId === 'main'){
+                        } else {
+                            layoutRef.current?.dockMove(tabs[tabId], null, 'remove');
+                        }
                         //layoutRef.current?.updateTab(tabId, tabs['main'], true);
                         openNewWindow(tabId);
                     }}

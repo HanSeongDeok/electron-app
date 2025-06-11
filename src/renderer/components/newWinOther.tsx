@@ -57,7 +57,7 @@ const TabTest1 = memo(() => {
     window.addEventListener('beforeunload', () => {
         bc.postMessage({
             type: 'SAVE_TAB_TEMP',
-            data: 'go', // 또는 useContextMenuStore.getState().clickedElementId
+            data: 'go', //useContextMenuStore.getState().clickedElementId
         });
     });
 
@@ -79,7 +79,6 @@ const TabTest1 = memo(() => {
                 />
                 <NewWindowMenu
                     onOpenTab={(tabId) => {
-                        const test = useContextMenuStore.getState().clickedElementId;
                         layoutRef.current?.dockMove({ ...tabs[tabId] }, 'main', 'after-tab');
                     }}
                     openNewWindow={(tabId) => {
