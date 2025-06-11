@@ -1,23 +1,35 @@
 import { Button } from '@/components/ui/button';
 import DockLayout from 'rc-dock';
 import type { LayoutData, PanelBase, TabData } from 'rc-dock';
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { handleContextMenu, layoutRef } from '@handlers/contextMenuHandler';
-import { DockContextMenu, menus } from './menus/dockContextMenu';
+import { handleContextMenu, handleNewWinMenu, layoutRef } from '@handlers/contextMenuHandler';
+import { DockContextMenu, NewWindowMenu } from './menus/dockContextMenu';
+import { useContextMenuStore, useTabStore } from '../stores/contextMenuStore';
+import { openNewWindow } from '../handlers/ipcHandler';
+
+
+//TODO 테스트 급하게 
+const TEST = memo(() => {
+    return (
+        <div>
+            <p>Hello Wow Test 이것은 Tab1의 내용이다.</p>
+        </div>
+    );
+})
 
 const main: TabData = {
     id: 'main',
     title: 'main',
     closable: false,
-    content: <div>Hello Main</div>,
+    content: <div>Hello World 1</div>,
 };
 
 const tab1: TabData = {
     id: 'tab1',
     title: 'tab1',
     closable: true,
-    content: <div>Hello World 1</div>,
+    content: <TEST />,
 };
 
 const tab2: TabData = {
@@ -62,6 +74,27 @@ const tabs: Record<string, TabData> = {
 };
 
 const DockApp = memo(() => {
+    const setTabTemp = useTabStore(s => s.setTabTemp);
+    const tabTemp = useTabStore(s => s.tabTemp);
+    useEffect(() => {
+        const bc = new BroadcastChannel('tab_channel');
+
+        bc.onmessage = (event) => {
+            if (event.data?.type === 'SAVE_TAB_TEMP') {
+                setTabTemp(event.data.data);
+            }
+            //layoutRef.current?.dockMove({ ...tabs[tabTemp] }, 'main', 'after-tab');
+        };
+
+        return () => bc.close();
+    }, []);
+
+    useEffect(() => {
+        if (tabTemp === "go") {
+            layoutRef.current?.dockMove({ ...tabs["tab1"] }, 'main', 'after-tab');
+        }
+    }, [tabTemp]);
+
     return (
         <div>
             <div className="flex justify-end p-1">
@@ -81,10 +114,17 @@ const DockApp = memo(() => {
                         bottom: 1,
                     }}
                 />
-                <DockContextMenu
+                <NewWindowMenu
                     onOpenTab={(tabId) => {
+                        const test = useContextMenuStore.getState().clickedElementId;
                         layoutRef.current?.dockMove({ ...tabs[tabId] }, 'main', 'after-tab');
-                    }} />
+                    }}
+                    openNewWindow={(tabId) => {
+                        console.log(tabId)
+                        layoutRef.current?.updateTab(tabId, tabs['main'], true);
+                        openNewWindow(tabId);
+                    }}
+                />
             </div>
         </div>
     );

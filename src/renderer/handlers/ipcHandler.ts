@@ -5,5 +5,5 @@ export const sendToMain = () => {
 }
 
 export const openNewWindow = (tab: string) => {
-  window.open(`/other/new/${tab}`, "_blank", "width=600,height=400");
+  window.open(`/#/other/new/${tab}`, "_blank", "width=600,height=400");
 }
