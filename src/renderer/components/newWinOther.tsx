@@ -1,32 +1,10 @@
 import { memo, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { TableView } from "@views/tableView";
 import { DockLayout, type LayoutData, type TabData } from "rc-dock";
 import { handleContextMenu, layoutRef } from "../handlers/contextMenuHandler";
 import { NewWindowMenu } from "./menus/dockContextMenu";
-import { useContextMenuStore } from "../stores/contextMenuStore";
-
-const NewWinOther = memo(() => {
-  const { tabName } = useParams<{ tabName: string }>();
-  const validTabName = tabName && ["file1", "file2", "file3"].includes(tabName)
-    ? tabName
-    : "file1";
-
-  return <div className="p-4">
-    <h1 className="text-xl font-bold mb-4">{validTabName} View</h1>
-    <TableView name={validTabName} />
-  </div>
-});
+import { TEST } from "./dock";
 
 //TODO 테스트 급하게 
-const TEST = memo(() => {
-  return (
-    <div>
-      <p>Hello Wow Test 이것은 Tab1의 내용이다.</p>
-    </div>
-  );
-})
-
 const tab1: TabData = {
   id: 'tab1',
   title: 'tab1',
