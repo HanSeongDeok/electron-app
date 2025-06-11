@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { NavLink } from 'react-router-dom';
 import { useCounterStore } from './zustandExample';
-import { useUserStoreHandler } from '../handlers/userStoreHandler';
 import { useUserStoreIPC, useUserStoreRestful } from '../stores/userStore';
 import { useEffect } from 'react';
 

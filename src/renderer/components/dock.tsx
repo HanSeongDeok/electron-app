@@ -76,14 +76,13 @@ const tabs: Record<string, TabData> = {
 const DockApp = memo(() => {
     const setTabTemp = useTabStore(s => s.setTabTemp);
     const tabTemp = useTabStore(s => s.tabTemp);
+
     useEffect(() => {
         const bc = new BroadcastChannel('tab_channel');
-
         bc.onmessage = (event) => {
             if (event.data?.type === 'SAVE_TAB_TEMP') {
                 setTabTemp(event.data.data);
             }
-            //layoutRef.current?.dockMove({ ...tabs[tabTemp] }, 'main', 'after-tab');
         };
 
         return () => bc.close();
@@ -91,10 +90,9 @@ const DockApp = memo(() => {
 
     useEffect(() => {
         if (tabTemp === "go") {
-            layoutRef.current?.dockMove({ ...tabs["tab1"] }, 'main', 'after-tab');
+            layoutRef.current?.dockMove(tabs["tab1"], 'main', 'after-tab');
         }
     }, [tabTemp]);
-
     return (
         <div>
             <div className="flex justify-end p-1">
@@ -117,11 +115,12 @@ const DockApp = memo(() => {
                 <NewWindowMenu
                     onOpenTab={(tabId) => {
                         const test = useContextMenuStore.getState().clickedElementId;
-                        layoutRef.current?.dockMove({ ...tabs[tabId] }, 'main', 'after-tab');
+                        layoutRef.current?.dockMove(tabs[tabId], 'main', 'after-tab');
                     }}
                     openNewWindow={(tabId) => {
                         console.log(tabId)
-                        layoutRef.current?.updateTab(tabId, tabs['main'], true);
+                        layoutRef.current?.dockMove(tabs[tabId], null, 'remove');
+                        //layoutRef.current?.updateTab(tabId, tabs['main'], true);
                         openNewWindow(tabId);
                     }}
                 />
