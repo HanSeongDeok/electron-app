@@ -1,41 +1,51 @@
 @import "tailwindcss";
+@import "rc-dock/dist/rc-dock-dark.css";
 
-@layer base {
-  body {
-    font-family: 'Inter', sans-serif;
-    @apply bg-black text-white;
-  }
+body {
+  font-family: 'Inter', sans-serif;
+  @apply bg-gray-800 transition-colors;
 }
 
-@layer custom {
-  .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-2 py-1 font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-500 shadow-md shadow-indigo-300/30 hover:from-indigo-600 hover:to-purple-600 active:scale-95 focus:outline-none focus:ring-2 focus:ring-indigo-300 transition-all duration-200 ease-in-out;
-  }
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-2 py-1 font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-500 shadow-md shadow-indigo-300/30 hover:from-indigo-600 hover:to-purple-600 active:scale-95 focus:outline-none focus:ring-2 focus:ring-indigo-300 transition-all duration-200 ease-in-out;
 }
 
-@layer components {
-  table {
-    @apply table-fixed w-full border-collapse text-sm;
-  }
-
-  th,
-  td {
-    @apply border-b border-gray-500;
-  }
-
-  thead th {
-    @apply border-b border-gray-300;
-  }
-
-  [data-slot="tabs-list"] {
-    @apply bg-gray-900 text-white rounded-md;
-  }
-
-  [data-slot="tabs-trigger"][data-state="active"] {
-    @apply bg-gray-700 text-white;
-  }
-
-  [data-slot="tabs-trigger"]:hover {
-    @apply bg-gray-800 transition-colors;
-  }
+table {
+  @apply table-fixed w-full border-collapse text-sm;
 }
+
+th,
+td {
+  @apply border-b border-gray-500;
+}
+
+thead th {
+  @apply border-b border-gray-300;
+}
+
+[data-slot="tabs-list"] {
+  @apply bg-gray-900 text-white rounded-md;
+}
+
+[data-slot="tabs-trigger"][data-state="active"] {
+  @apply bg-gray-700 text-white;
+}
+
+[data-slot="tabs-trigger"]:hover {
+  @apply bg-gray-800 transition-colors;
+}
+
+.dock-tab {
+  @apply px-8 py-1 text-sm text-white bg-zinc-800 hover:bg-zinc-700;
+  border-bottom: none !important;
+}
+
+.dock-tab-active {
+  @apply bg-zinc-600 font-bold;
+  border-bottom: none !important;
+}
+
+.dock-tab-close-btn {
+  @apply text-red-400 hover:text-red-600;
+}
+
