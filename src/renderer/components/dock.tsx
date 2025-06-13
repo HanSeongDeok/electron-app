@@ -12,7 +12,7 @@ import { openNewWindow } from '../handlers/ipcHandler';
 //TODO 테스트 급하게 
 export const TEST = memo(() => {
     return (
-        <div>
+        <div className="p-2 text-2xl">
             <p>Hello Wow Test 이것은 Tab1의 내용이다.</p>
         </div>
     );
@@ -52,6 +52,7 @@ const tab4: TabData = {
     closable: true,
     content: <div>Hello World 4</div>,
 };
+
 
 const defaultLayout: LayoutData = {
     dockbox: {

@@ -3,7 +3,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  @apply bg-gray-800 transition-colors;
+  @apply bg-gray-900 transition-colors;
 }
 
 .btn {
@@ -22,7 +22,7 @@ td {
 thead th {
   @apply border-b border-gray-300;
 }
-
+/* 
 [data-slot="tabs-list"] {
   @apply bg-gray-900 text-white rounded-md;
 }
@@ -33,19 +33,27 @@ thead th {
 
 [data-slot="tabs-trigger"]:hover {
   @apply bg-gray-800 transition-colors;
+} */
+
+.dock-panel .dock-tabbar {
+  min-height: 56px !important;
+  height: 56px !important;
+  align-items: center !important;
+  display: flex !important;
 }
 
 .dock-tab {
-  @apply px-8 py-1 text-sm text-white bg-zinc-800 hover:bg-zinc-700;
-  border-bottom: none !important;
+  @apply px-8 py-1.5 text-sm font-semibold font-sans text-purple-200 bg-zinc-800 hover:bg-zinc-700 mr-1 ml-1 tracking-wide transition-colors duration-200;
+  font-family: 'Inter', 'Pretendard', 'Noto Sans KR', sans-serif;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
 .dock-tab-active {
   @apply bg-zinc-600 font-bold;
-  border-bottom: none !important;
 }
 
 .dock-tab-close-btn {
   @apply text-red-400 hover:text-red-600;
 }
-

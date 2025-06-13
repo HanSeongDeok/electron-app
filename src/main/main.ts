@@ -7,8 +7,8 @@ import { connectMongo } from './db/mongo.db.js';
 app.whenReady().then(async () => { 
   startServer();
   createWindow();
-  await connectMongo();
   registerHandlers();
+  await connectMongo();
 })
 
 app.on('window-all-closed', function () { 
