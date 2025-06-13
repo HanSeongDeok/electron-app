@@ -21,6 +21,8 @@ export default defineConfig({
       },
       external: [
         'electron',
+        'mongoose',
+        'mongodb',
         ...builtinModules.flatMap(m => [m, `node:${m}`]),
       ],
       output: {
