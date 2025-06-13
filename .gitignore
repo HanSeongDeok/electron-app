@@ -27,3 +27,5 @@ yarn-error.log*
 
 # vite
 .vite/
+.vite/build/
+.vite/build/*
