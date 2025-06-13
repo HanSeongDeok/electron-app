@@ -26,4 +26,4 @@ yarn-error.log*
 /out
 
 # vite
-.vite
+.vite/

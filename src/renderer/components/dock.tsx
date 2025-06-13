@@ -1,16 +1,16 @@
 import { Button } from '@/components/ui/button';
 import DockLayout from 'rc-dock';
-import type { LayoutData, PanelBase, TabData } from 'rc-dock';
-import { memo, useEffect, useState } from 'react';
+import type { LayoutData, TabData } from 'rc-dock';
+import { memo, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { handleContextMenu, handleNewWinMenu, layoutRef } from '@handlers/contextMenuHandler';
-import { DockContextMenu, NewWindowMenu } from './menus/dockContextMenu';
+import { handleContextMenu, layoutRef } from '@handlers/contextMenuHandler';
+import { NewWindowMenu } from './menus/dockContextMenu';
 import { useContextMenuStore, useTabStore } from '../stores/contextMenuStore';
 import { openNewWindow } from '../handlers/ipcHandler';
 
 
 //TODO 테스트 급하게 
-const TEST = memo(() => {
+export const TEST = memo(() => {
     return (
         <div>
             <p>Hello Wow Test 이것은 Tab1의 내용이다.</p>
