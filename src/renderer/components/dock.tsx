@@ -87,7 +87,6 @@ const DockApp = memo(() => {
         const saveLayout = () => {
             if (layoutRef.current) {
                 const layout = layoutRef.current.getLayout();
-                // 순환 참조를 제거하기 위해 필요한 데이터만 복사
                 const layoutCopy = {
                     dockbox: {
                         mode: layout.dockbox.mode,
@@ -114,6 +113,11 @@ const DockApp = memo(() => {
         const interval = setInterval(saveLayout, 5000);
         return () => clearInterval(interval);
     }, []);
+
+    // 레이아웃 변경 시 상태 업데이트
+    const onLayoutChange = (newLayout: LayoutData) => {
+        setCurrentLayout(newLayout);
+    };
 
     useEffect(() => {
         const bc = new BroadcastChannel('tab_channel');
@@ -142,7 +146,8 @@ const DockApp = memo(() => {
             <div onContextMenu={handleContextMenu}>
                 <DockLayout
                     ref={layoutRef}
-                    defaultLayout={defaultLayout}
+                    defaultLayout={currentLayout}
+                    onLayoutChange={onLayoutChange}
                     style={{
                         position: 'absolute',
                         left: 1,
