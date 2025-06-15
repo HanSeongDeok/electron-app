@@ -3,48 +3,58 @@ import mongoose from 'mongoose';
 import { spawn } from 'child_process';
 import path from 'path';
 import fs from 'fs';
+import type { LayoutData } from 'rc-dock';
 
 let mongoProcess: any = null;
-
-// strictQuery 경고 해결
 mongoose.set('strictQuery', false);
 
-export const startMongoProcess = () => {
-    // MongoDB 실행 파일 경로 설정
-    const mongoPath = path.join(__dirname, '..', '..', 'mongodb', 'bin', 'mongod.exe');
-    
-    // MongoDB 데이터 디렉토리 설정
-    const dataDir = path.join(__dirname, '..', '..', 'data', 'db');
-    
-    // 데이터 디렉토리가 없으면 생성
-    if (!fs.existsSync(dataDir)) {
-        fs.mkdirSync(dataDir, { recursive: true });
-    }
+// 탭 위치 정보를 저장할 스키마
+const TabLayoutSchema = new mongoose.Schema({
+    layoutId: { type: String, required: true, unique: true },
+    layout: { type: Object, required: true },
+    updatedAt: { type: Date, default: Date.now }
+});
 
-    // MongoDB 프로세스 시작
+const TabLayout = mongoose.model('TabLayout', TabLayoutSchema);
+
+export const startMongoProcess = () => {
+    const mongoPath = path.join(__dirname, '..', '..', 'mongodb', 'bin', 'mongod.exe');
+    const dataDir = path.join(__dirname, '..', '..', 'data', 'db');
+
     mongoProcess = spawn(mongoPath, ['--dbpath', dataDir], {
         stdio: 'pipe',
         windowsHide: true
     });
+};
 
-    mongoProcess.stdout.on('data', (data: Buffer) => {
-        console.log(`MongoDB stdout: ${data.toString('utf8')}`);
-    });
+// 탭 레이아웃 저장 함수
+export const saveTabLayout = async (layoutId: string, layout: LayoutData) => {
+    try {
+        await TabLayout.findOneAndUpdate(
+            { layoutId },
+            { layout, updatedAt: new Date() },
+            { upsert: true }
+        );
+        console.log('✅ 탭 레이아웃 저장 성공');
+    } catch (err) {
+        console.error('❌ 탭 레이아웃 저장 실패:', err);
+        throw err;
+    }
+};
 
-    mongoProcess.stderr.on('data', (data: Buffer) => {
-        console.error(`MongoDB stderr: ${data.toString('utf8')}`);
-    });
-
-    mongoProcess.on('close', (code: number) => {
-        console.log(`MongoDB process exited with code ${code}`);
-    });
-
-    // MongoDB가 시작될 때까지 잠시 대기
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(mongoProcess);
-        }, 3000); // 대기 시간 증가
-    });
+// 탭 레이아웃 불러오기 함수
+export const loadTabLayout = async (layoutId: string): Promise<LayoutData | null> => {
+    try {
+        const savedLayout = await TabLayout.findOne({ layoutId });
+        if (savedLayout) {
+            console.log('✅ 탭 레이아웃 불러오기 성공');
+            return savedLayout.layout as LayoutData;
+        }
+        return null;
+    } catch (err) {
+        console.error('❌ 탭 레이아웃 불러오기 실패:', err);
+        throw err;
+    }
 };
 
 export const connectMongo = async () => {
@@ -64,13 +74,16 @@ export const connectMongo = async () => {
         const User = mongoose.model('User', new mongoose.Schema({
             name: String,
             age: Number,
-        }, { timestamps: true }));        
-
+        }, { timestamps: true }));
+        
+        await User.create([
+            { name: 'HAN', age: 30 },
+        ]);
         await User.updateMany({}, { $set: { age: 29 } });
 
-        console.log('✅ MongoDB 연결 성공');
+        console.log('✅ MongoDB GOOD');
     } catch (err) {
-        console.error('❌ MongoDB 연결 실패:', err);
+        console.error('❌ MongoDB FAIL:', err);
         // 프로세스가 실행 중이면 종료
         if (mongoProcess) {
             mongoProcess.kill();
