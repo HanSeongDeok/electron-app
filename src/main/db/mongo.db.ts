@@ -27,36 +27,6 @@ export const startMongoProcess = () => {
     });
 };
 
-// 탭 레이아웃 저장 함수
-export const saveTabLayout = async (layoutId: string, layout: LayoutData) => {
-    try {
-        await TabLayout.findOneAndUpdate(
-            { layoutId },
-            { layout, updatedAt: new Date() },
-            { upsert: true }
-        );
-        console.log('✅ 탭 레이아웃 저장 성공');
-    } catch (err) {
-        console.error('❌ 탭 레이아웃 저장 실패:', err);
-        throw err;
-    }
-};
-
-// 탭 레이아웃 불러오기 함수
-export const loadTabLayout = async (layoutId: string): Promise<LayoutData | null> => {
-    try {
-        const savedLayout = await TabLayout.findOne({ layoutId });
-        if (savedLayout) {
-            console.log('✅ 탭 레이아웃 불러오기 성공');
-            return savedLayout.layout as LayoutData;
-        }
-        return null;
-    } catch (err) {
-        console.error('❌ 탭 레이아웃 불러오기 실패:', err);
-        throw err;
-    }
-};
-
 export const connectMongo = async () => {
     try {
         // 연결 옵션 설정

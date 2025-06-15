@@ -108,8 +108,6 @@ const DockApp = memo(() => {
                 localStorage.setItem('dock-layout', JSON.stringify(layoutCopy));
             }
         };
-
-        // 5초마다 레이아웃 저장
         const interval = setInterval(saveLayout, 5000);
         return () => clearInterval(interval);
     }, []);

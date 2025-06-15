@@ -1,8 +1,6 @@
 import { layoutRef } from '@/renderer/handlers/contextMenuHandler';
-import { useContextMenuStore, useTabStore } from '@/renderer/stores/contextMenuStore';
+import { useContextMenuStore } from '@/renderer/stores/contextMenuStore';
 import { Menu, Item, Separator } from 'react-contexify';
-import 'react-contexify/dist/ReactContexify.css';
-import { useState } from 'react';
 
 export const MENU_ID = 'dock-menu';
 export const WIN_MENU_ID = 'win-dock-menu';
